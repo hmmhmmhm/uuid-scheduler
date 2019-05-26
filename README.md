@@ -54,7 +54,7 @@ test1.js result
 task1 uuid:947d4a89-684a-4f12-b35d-5e0edba3937d run!
 task1 uuid:947d4a89-684a-4f12-b35d-5e0edba3937d callback run!
 task2 uuid:026400ba-da8a-4c57-8789-ef1bfa11db29 run!
-task2 uuid:026400ba-da8a-4c57-8789-ef1bfa11db29 ca llback run!
+task2 uuid:026400ba-da8a-4c57-8789-ef1bfa11db29 callback run!
 task3 uuid:59553cb4-0672-44e1-bad0-c51cca5b2087 callback run!
 task3 uuid:59553cb4-0672-44e1-bad0-c51cca5b2087 callback isStopped: true
 ```
