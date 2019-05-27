@@ -112,6 +112,7 @@ export declare class Scheduler implements IScheduler {
     getFinishedTasks(): IExtractedData[];
     getAllTasks(): IScheduleTask[];
 }
+export declare const timeout: (ms: number) => Promise<{}>;
 export interface IFailSafeCommon {
     task: (task: IScheduleTask) => Promise<any>;
     callback?: (task: IScheduleTask, result: any) => Promise<any>;

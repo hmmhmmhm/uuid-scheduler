@@ -195,7 +195,7 @@ var Scheduler = /** @class */ (function () {
                             return [3 /*break*/, 9];
                         case 9:
                             if (!(runningTask.delay && !isNaN(runningTask.delay) && runningTask.delay > 0)) return [3 /*break*/, 11];
-                            return [4 /*yield*/, timeout(runningTask.delay)
+                            return [4 /*yield*/, exports.timeout(runningTask.delay)
                                 // uuid 를 running 에서 finished 로 이동
                             ];
                         case 10:
@@ -382,7 +382,7 @@ var Scheduler = /** @class */ (function () {
     return Scheduler;
 }());
 exports.Scheduler = Scheduler;
-var timeout = function (ms) { return new Promise(function (resolve) { return setTimeout(resolve, ms); }); };
+exports.timeout = function (ms) { return new Promise(function (resolve) { return setTimeout(resolve, ms); }); };
 exports.taskDataExtractor = function (task) {
     if (task.uuid == undefined)
         return undefined;

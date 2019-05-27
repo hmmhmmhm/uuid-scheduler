@@ -419,7 +419,7 @@ export class Scheduler implements IScheduler {
     }
 }
 
-const timeout = (ms) => { return new Promise(resolve => setTimeout(resolve, ms)) }
+export const timeout = (ms: number) => { return new Promise(resolve => setTimeout(resolve, ms)) }
 
 export interface IFailSafeCommon {
     task: (task: IScheduleTask) => Promise<any>
