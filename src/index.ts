@@ -35,7 +35,7 @@ export interface IScheduleTask {
     /**
      * @description 작업이 최초 삽입된 시간을 기록합니다.
      */
-    timestamp?: number
+    timestamp: number
 
     /**
      * @description 작업의 고유ID 를 반환합니다.
@@ -432,6 +432,7 @@ export interface IExtractedData {
     delay: any
     isStarted: boolean
     isStopped: boolean
+    timestamp: number
 }
 
 export interface IFailSafeExtractedTask {
@@ -448,6 +449,7 @@ export const taskDataExtractor = (task: IScheduleTask): IExtractedData | undefin
         data: task.data,
         result: task.result,
         delay: task.delay,
+        timestamp: task.timestamp,
         isStarted: (!task.isStarted)? false : task.isStarted,
         isStopped: (!task.isStopped)? false : task.isStopped
     }
@@ -497,7 +499,8 @@ export class CommonScheduler extends Scheduler {
             task: this.common.task,
             callback: this.common.callback,
             delay: option.delay,
-            data: option.data
+            data: option.data,
+            timestamp: Date.now()
         })
 
         if(typeof(option.callback) == 'function'){
@@ -551,7 +554,9 @@ export class CommonScheduler extends Scheduler {
                         delay: taskData.delay,
 
                         isStarted: taskData.isStarted,
-                        isStopped: taskData.isStopped
+                        isStopped: taskData.isStopped,
+
+                        timestamp: taskData.timestamp
                     })
                 }}
             }

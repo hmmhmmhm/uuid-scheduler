@@ -391,6 +391,7 @@ exports.taskDataExtractor = function (task) {
         data: task.data,
         result: task.result,
         delay: task.delay,
+        timestamp: task.timestamp,
         isStarted: (!task.isStarted) ? false : task.isStarted,
         isStopped: (!task.isStopped) ? false : task.isStopped
     };
@@ -430,7 +431,8 @@ var CommonScheduler = /** @class */ (function (_super) {
             task: this.common.task,
             callback: this.common.callback,
             delay: option.delay,
-            data: option.data
+            data: option.data,
+            timestamp: Date.now()
         });
         if (typeof (option.callback) == 'function') {
             this.event.on('finished', function (eventTask) {
@@ -479,7 +481,8 @@ var CommonScheduler = /** @class */ (function (_super) {
                             result: taskData.result,
                             delay: taskData.delay,
                             isStarted: taskData.isStarted,
-                            isStopped: taskData.isStopped
+                            isStopped: taskData.isStopped,
+                            timestamp: taskData.timestamp
                         });
                     }
                 }

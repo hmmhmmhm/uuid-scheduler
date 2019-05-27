@@ -24,7 +24,7 @@ export interface IScheduleTask {
     /**
      * @description 작업이 최초 삽입된 시간을 기록합니다.
      */
-    timestamp?: number;
+    timestamp: number;
     /**
      * @description 작업의 고유ID 를 반환합니다.
      */
@@ -124,6 +124,7 @@ export interface IExtractedData {
     delay: any;
     isStarted: boolean;
     isStopped: boolean;
+    timestamp: number;
 }
 export interface IFailSafeExtractedTask {
     pending: IExtractedData[];
