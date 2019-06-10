@@ -1,13 +1,19 @@
 {
   "name": "uuid-scheduler",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "🌳 Task scheduler with uuid and delay options based on async task",
   "main": "./dist/index.js",
   "type": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc"
   },
-  "keywords": [],
+  "keywords": [
+    "scheduler",
+    "task",
+    "task-scheduler",
+    "tick-processor",
+    "task-runner"
+  ],
   "author": "hmmhmmhm",
   "license": "MIT",
   "devDependencies": {
@@ -17,6 +23,7 @@
   "dependencies": {
     "cancelable-event": "^1.0.2",
     "lru-cache": "^5.1.1",
+    "moment": "^2.24.0",
     "uuid": "^3.3.2"
   }
 }
