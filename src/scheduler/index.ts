@@ -296,8 +296,15 @@ export class Scheduler implements Type.IScheduler {
                     try{
                         if(IS_DEBUG_MODE) console.log(`runningTask run`)
                         result = await runningTask.task(runningTask)
+                        runningTask.isEnded = true
                     }catch(e){ console.log(e) }
                 }
+
+                // 이벤트에 의해 중단된 경우에도
+                // 작업이 중단 되었음을 상태값으로 저장합니다.
+                if(eventResult.isCanceled && !runningTask.isStopped)
+                    runningTask.isStopped = true
+                
                 runningTask.result = result
 
                 // 콜백 실행
@@ -354,7 +361,8 @@ export class Scheduler implements Type.IScheduler {
         if(typeof paramTask.timestamp != 'number') paramTask.timestamp = Date.now()
         if(typeof paramTask.isStarted != 'boolean') paramTask.isStarted = false
         if(typeof paramTask.isStopped != 'boolean') paramTask.isStopped = false
-        
+        if(typeof paramTask.isEnded != 'boolean') paramTask.isEnded = false
+
         if(IS_DEBUG_MODE) console.log(`addTask: ${paramTask.uuid} start`)
 
         // 이미 작업목록에 있으면 패스
@@ -427,10 +435,25 @@ export class Scheduler implements Type.IScheduler {
          * @description
          * tasks 작업에 콜백을 겁니다.
          */
-        this.event.on('finished', async (eventTask: Type.IScheduleTask)=>{
+        if(option != undefined){
+            let isChecked = false
+            this.event.on('finished', async (eventTask: Type.IScheduleTask)=>{
+                if(isChecked) return
 
-            // 마지막 작업이 끝났을때
-            if(eventTask.uuid == paramTasks[paramTasks.length-1].uuid){
+                /**
+                 * @description
+                 * 모든 작업의 종료 여부를 수집하고
+                 * 모든 작업이 종료된 것으로 판단될 때
+                 */
+                for(let collectedTask of collectedTasks)
+                    if(!collectedTask.isEnded && !collectedTask.isStopped) return
+
+                isChecked = true
+
+                /**
+                 * @todo
+                 * tasks 의 callback 개념추가
+                 */
 
                 try{
                     if(option){
@@ -438,6 +461,10 @@ export class Scheduler implements Type.IScheduler {
                         // await delay
                         if(typeof(option['delay']) === 'number' && option['delay'] > 0)
                             await Util.timeout(option['delay'])
+
+                        // callback 시작
+                        if(typeof(option['callback']) === 'function')
+                            await option.callback()
 
                         // loop: ()=> boolean
                         if(typeof(option['loop']) === 'function'){
@@ -472,8 +499,8 @@ export class Scheduler implements Type.IScheduler {
                         }
                     }
                 }catch(e){console.error(e)}
-            }
-        })
+            })
+        }
         
         return collectedTasks
     }

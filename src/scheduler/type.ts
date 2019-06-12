@@ -43,10 +43,18 @@ export interface IScheduleTask {
 
     /**
      * @description
-     * 작업이 중단 되었는지를 설정합니다.
-     * 시작되기 전에 해당 값이 false 면 실행되지 않습니다.
+     * 작업이 중단 되어야하는 지를 설정할 수 있습니다.
+     * 작업이 시작되기 전에 이 값이 검사되면
+     * 이 값이 false 상태이면 작업이 실행되지 않습니다.
+     * 만약 이벤트에 의해 작업이 중단되었어도 이값이 true 로 됩니다.
      */
     isStopped?: boolean
+
+    /**
+     * @description
+     * 작업이 정상적으로 끝났는지 여부에 대한 상태 값입니다.
+     */
+    isEnded?: boolean
 
     /**
      * @description 작업을 기다릴 시간을 정합니다.
@@ -139,4 +147,5 @@ export interface IAddTasksOption {
     delay?: number
     schedule?: number | moment.Moment
     loop?: ()=>boolean
+    callback?: ()=>void
 }
