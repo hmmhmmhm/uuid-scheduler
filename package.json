@@ -24,6 +24,6 @@
     "cancelable-event": "^1.0.2",
     "lru-cache": "^5.1.1",
     "moment": "^2.24.0",
-    "uuid": "^3.3.2"
+    "uuid": "^14.0.0"
   }
 }
